@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +7,87 @@
     tools:context="com.example.android.testamante.MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="56dp"
-        android:layout_height="17dp"
-        android:text="Amante"
-        android:textSize="80sp"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="78dp" />
-</android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textSize="30sp"
+            android:text="Amante"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/logo"
+            android:layout_below="@+id/logo"
+            android:textSize="16sp"
+            android:textColor="@color/colorText"
+            android:layout_marginStart="24dp"
+            android:text="your cute meet story..." />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/caption"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:ems="10"
+
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="2dp"
+                android:textSize="24sp"
+                android:inputType="textPersonName"
+                android:background="@color/colorTextBG"
+                android:layout_margin="7dp"
+                android:hint="UserName"/>
+
+            <EditText
+                android:id="@+id/upwd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="7dp"
+
+                android:background="@color/colorTextBG"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="2dp"
+                android:textSize="24sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:layout_margin="7dp"
+                android:padding="1dp"
+                android:text="Login"
+                android:textColor="@color/colorButtonLBl"
+                android:background="@color/colorButton"
+                android:textAllCaps="false"
+                android:textStyle="bold"/>
+
+
+        </LinearLayout>
+
+
+</RelativeLayout>
+
