@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "322264650280",
+    "firebase_url": "https://amante-85210.firebaseio.com",
+    "project_id": "amante-85210",
+    "storage_bucket": "amante-85210.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322264650280:android:a8b4fefaa8ed75d7",
+        "android_client_info": {
+          "package_name": "com.example.android.testamante"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322264650280-c3hgbm70iqep339llr6dmkaq0djchg4o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrIKuccHy8UplajPcY-C0zZ6tpaNMTbFs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
