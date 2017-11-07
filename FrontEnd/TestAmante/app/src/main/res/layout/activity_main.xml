@@ -7,6 +7,10 @@
     tools:context="com.example.android.testamante.MainActivity">
 
 
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
         <TextView
             android:id="@+id/logo"
@@ -34,7 +38,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/caption"
             android:layout_marginTop="14dp"
@@ -74,6 +78,7 @@
                 android:textSize="24sp" />
 
             <Button
+                android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="35sp"
@@ -84,6 +89,32 @@
                 android:background="@color/colorButton"
                 android:textAllCaps="false"
                 android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/email_create_account_button"
+                android:textSize="35sp"
+                android:layout_margin="7dp"
+                android:padding="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButton"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:textColor="@color/colorButtonLBl"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/google_acct_button"
+                android:textSize="35sp"
+                android:layout_margin="7dp"
+                android:padding="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButton"
+                android:text="Register with Google"
+                android:textAllCaps="false"
+                android:textColor="@color/colorButtonLBl"
+                android:textStyle="bold" />
 
 
         </LinearLayout>

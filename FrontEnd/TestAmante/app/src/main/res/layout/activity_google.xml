@@ -3,7 +3,6 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_100"
     android:orientation="vertical"
     android:weightSum="4">
 
@@ -15,10 +14,8 @@
         android:orientation="vertical">
 
         <ImageView
-            style="@style/ThemeOverlay.FirebaseIcon"
             android:id="@+id/google_icon"
             android:contentDescription="@string/desc_firebase_lockup"
-            android:src="@drawable/firebase_lockup_400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -26,18 +23,20 @@
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/title_bottom_margin"
+            android:layout_marginBottom="20dp"
             android:text="@string/google_title_text"
-            android:theme="@style/ThemeOverlay.MyTitleText" />
+            />
 
         <TextView
             android:id="@+id/status"
-            style="@style/ThemeOverlay.MyTextDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/signed_out" />
 
         <TextView
             android:id="@+id/detail"
-            style="@style/ThemeOverlay.MyTextDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:text="Firebase User ID: 123456789abc" />
 
     </LinearLayout>
@@ -46,8 +45,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/grey_300">
+        android:layout_weight="1">
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
@@ -74,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/sign_out"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
+                />
 
             <Button
                 android:id="@+id/disconnect_button"
@@ -82,9 +80,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/disconnect"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
+                 />
         </LinearLayout>
-
     </RelativeLayout>
+
 
 </LinearLayout>
