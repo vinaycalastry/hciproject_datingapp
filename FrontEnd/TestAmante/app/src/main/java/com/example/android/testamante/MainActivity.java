@@ -22,18 +22,20 @@ public class MainActivity extends AppCompatActivity {
             changeEmail, changePassword, sendEmail, remove, signOut;
 
     private EditText oldEmail, newEmail, password, newPassword;
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_dummy);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar.setTitle(getString(R.string.app_name));
+        //setSupportActionBar(toolbar);
+
+
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
+        /*
         btnChangeEmail = (Button) findViewById(R.id.change_email_button);
         btnChangePassword = (Button) findViewById(R.id.change_password_button);
         btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
@@ -238,9 +240,10 @@ public class MainActivity extends AppCompatActivity {
                 signOut();
             }
         });
-
+ */
     }
 
+/*
     //sign out method
     public void signOut() {
         auth.signOut();
@@ -265,4 +268,7 @@ public class MainActivity extends AppCompatActivity {
             auth.removeAuthStateListener(authListener);
         }
     }
+
+*/
+
 }
