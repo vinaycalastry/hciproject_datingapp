@@ -100,7 +100,7 @@
                 android:textColor="@color/colorButtonLBl"
                 android:textStyle="bold" />
 
-            <Button
+            <com.google.android.gms.common.SignInButton
                 android:id="@+id/google_acct_button"
                 android:textSize="35sp"
                 android:layout_margin="7dp"
@@ -112,6 +112,8 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorButtonLBl"
                 android:textStyle="bold" />
+
+
 
 
         </LinearLayout>
