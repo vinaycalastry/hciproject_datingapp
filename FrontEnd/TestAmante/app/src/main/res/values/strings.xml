@@ -75,4 +75,12 @@
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
     <string name="minimum_password">Password length is less than 6 characters.</string>
+
+    <string name="network_error">A network error occurred. Please Check your connection and try again.</string>
+
+    <string name="error_invalid_username">This UserName is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
 </resources>

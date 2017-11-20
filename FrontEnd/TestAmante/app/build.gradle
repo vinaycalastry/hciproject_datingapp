@@ -26,7 +26,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-
     // Firebase Authentication
     compile 'com.google.firebase:firebase-auth:11.6.0'
 
@@ -42,5 +41,7 @@ dependencies {
     // app. You can build a 'minSdkGingerbread' variant to test on devices with 9 <= SDK <= 15.
 
 }
+
+
 
 apply plugin: 'com.google.gms.google-services'
