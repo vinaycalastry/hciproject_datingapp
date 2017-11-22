@@ -1,18 +1,16 @@
 package com.example.android.testamante.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.example.android.testamante.MainActivity;
 import com.example.android.testamante.R;
 import com.example.android.testamante.utils.UtilClass;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -31,12 +29,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
 
 
+    private static final int RC_SIGN_IN = 9001;
     private AutoCompleteTextView mUserNameView;
     private AutoCompleteTextView mUserPasswordView;
     private CheckBox rememberLoginBox;
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
-    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
