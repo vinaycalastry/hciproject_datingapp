@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -112,9 +113,6 @@ public class LoginActivity extends AppCompatActivity {
             isInValid = true;
         }
 
-
-
-
         if (isInValid) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -160,10 +158,7 @@ public class LoginActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
         if (UtilClass.isNetworkAvailable(this)) {
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-
-
+            
             AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
             auth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -209,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                //Log.w(TAG, "Google sign in failed", e);
+                Log.w("GoogleSignInError", "Google sign in failed", e);
 
             }
         }
