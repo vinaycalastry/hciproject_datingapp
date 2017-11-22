@@ -1,13 +1,13 @@
 package com.example.android.testamante.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.example.android.testamante.*;
+import com.example.android.testamante.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener{
@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         switch(view.getId())
         {
             case R.id.splashRegisterBtn:
-                //startActivity(new Intent(SplashActivity.this,))
+                startActivity(new Intent(SplashActivity.this, RegisterActivity.class));
                 break;
             case R.id.splashSignInBtn:
                 startActivity(new Intent(SplashActivity.this,LoginActivity.class));

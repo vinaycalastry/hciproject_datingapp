@@ -79,8 +79,16 @@
     <string name="network_error">A network error occurred. Please Check your connection and try again.</string>
 
     <string name="error_invalid_username">This UserName is invalid</string>
+    <string name="error_invalid_email">This Email is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="email_hint">Email</string>
+    <string name="phone_hint">Phone</string>
+    <string name="sign_up_text">Sign Up</string>
+    <string name="error_invalid_phone">Enter a valid Phone No.</string>
 
 </resources>
