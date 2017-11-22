@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "606166228372",
+    "firebase_url": "https://testchat-c10e3.firebaseio.com",
+    "project_id": "testchat-c10e3",
+    "storage_bucket": "testchat-c10e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606166228372:android:9f731b30a3f6c525",
+        "android_client_info": {
+          "package_name": "dev.edmt.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606166228372-dcg6d6artant7v3n5eo9l0qek3eo1qbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANZa3LJMFoHSLs-6Ka6RzMF1uJg12mXdA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
