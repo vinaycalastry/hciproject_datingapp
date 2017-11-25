@@ -90,5 +90,20 @@
     <string name="phone_hint">Phone</string>
     <string name="sign_up_text">Sign Up</string>
     <string name="error_invalid_phone">Enter a valid Phone No.</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="dob_hint">D.O.B</string>
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="gender_prompt">Gender</string>
+    <string name="next">Next</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="uploadPic">Upload</string>
 
 </resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.android.testamante.ui.ProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/formLogo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_logo" />
+
+        <com.roughike.swipeselector.SwipeSelector
+            android:id="@+id/conditionSelector"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/formLogo"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_white"
+            app:swipe_descriptionGravity="center"
+            app:swipe_indicatorActiveColor="@color/swipe_selector_active_color"
+            app:swipe_indicatorInActiveColor="@color/swipeselector_color_indicator_inactive"
+            app:swipe_indicatorMargin="12dp"
+            app:swipe_indicatorSize="10dp"
+            app:swipe_leftButtonResource="@null"
+            app:swipe_rightButtonResource="@null"
+            app:swipe_titleTextAppearance="@style/AppTheme.SwipeTitleAppearance">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="35dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                <Button
+                    android:id="@+id/profileActivityNextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_btn"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/next"
+                    android:textColor="@color/white"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+
+        </com.roughike.swipeselector.SwipeSelector>
+
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

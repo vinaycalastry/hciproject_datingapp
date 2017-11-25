@@ -13,4 +13,5 @@
     <color name="colorinputText">#a834d2</color>
     <color name="colorButtonLBl">#ebddf0</color>
     <color name="white">#ffffff</color>
+    <color name="swipe_selector_active_color">#6ab7ff</color>
 </resources>
