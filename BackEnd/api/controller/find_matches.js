@@ -15,7 +15,7 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 const database = firebase.database();
 
-
+var matchedPeople=[];
 //Get request getMatches handler
 module.exports.getMatches = function(req, res){    
     var profileId = req.params.profId;
@@ -25,14 +25,14 @@ module.exports.getMatches = function(req, res){
         var likes = snapshot.child('likes').val();
         var dislikes = snapshot.child('dislikes').val();
 
-        var matchedPeople = matchDate(profileId, likes, dislikes);
-		console.log(profileId);
+        matchedPeople = matchDate(profileId, likes, dislikes);
+		console.log(matchedPeople);
 
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
     
-    res.status(200).json("1");    
+    res.status(200).json(matchedPeople);    
 }
 
 
@@ -47,21 +47,31 @@ query.once("value")
     snapshot.forEach(function(childSnapshot) {
       // key will be "ada" the first time and "alan" the second time
       var key = childSnapshot.key;
+	  var objarr={};
 	   var childref = database.ref('Profiles/0/').child(key);
 		childref.on("value", function(snapshot) {
         var likes = snapshot.child('likes').val();
         var dislikes = snapshot.child('dislikes').val();
+		 var picurl = snapshot.child('picurl').val();
 		var vig=0;
+		objarr={};
 		if(checkEquals(likes,likeList)!=-1 && key!=profId){
 			console.log("matched"+ likes)
 			console.log(key);
-			matchedID.push(key);
+			objarr[0]=key;
+			objarr[1]=picurl;
+			matchedID.push(objarr);
+			console.log(objarr);
 			vig=1;
 		}
 		if(checkEquals(dislikes,dislikeList)!=-1 && key!=profId && vig==0){
 			console.log("matched"+ likes)
 			console.log(key);
-			matchedID.push(key);
+			objarr[0]=key;
+			objarr[1]=picurl;
+			console.log(objarr);
+			matchedID.push(objarr);
+		//	matchedID.push(key);
 		}
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
