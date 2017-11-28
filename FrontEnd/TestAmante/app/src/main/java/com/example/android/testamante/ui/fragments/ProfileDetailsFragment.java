@@ -1,17 +1,24 @@
 package com.example.android.testamante.ui.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.android.testamante.R;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +39,12 @@ public class ProfileDetailsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private EditText usernameEditText;
+    private EditText dobEditText;
+    private Spinner iamASpinner;
+    private Spinner interestedInSpinner;
+    private SimpleDateFormat dateFormatter;
+    private DatePickerDialog dobDatePickerDialog;
 
     public ProfileDetailsFragment() {
         // Required empty public constructor
@@ -69,19 +82,46 @@ public class ProfileDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_profile_details, container, false);
-        String username = rootView.findViewById(R.id.profileUserName).toString();
-        DateFormat dob = DateFormat.getDateInstance();
+        usernameEditText = rootView.findViewById(R.id.profileUserName);
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dobEditText = (EditText) rootView.findViewById(R.id.profileDob);
+        dobEditText.setInputType(InputType.TYPE_NULL);
+        // Set the current day initially
+        setDateTimeField();
+
+        dobEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dobDatePickerDialog.show();
+            }
+        });
+
+        iamASpinner = (Spinner) rootView.findViewById(R.id.profileGenderSpinner);
+
+        interestedInSpinner = (Spinner) rootView.findViewById(R.id.profileInterestedIn);
+
+        //Log.v("Spinner",String.valueOf(interestedInSpinner.getSelectedItem()));
 
         Button nextBtn = (Button) rootView.findViewById(R.id.profileActivityNextButton);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                attemptSave();
             }
         });
 
         return rootView;
     }
+
+    private void attemptSave() {
+        // Store values at the time of the save attempt.
+        String username = usernameEditText.getText().toString();
+        String dob = dobEditText.getText().toString();
+        String iamA = String.valueOf(iamASpinner.getSelectedItem());
+        String interestedIn = String.valueOf(interestedInSpinner.getSelectedItem());
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -107,6 +147,23 @@ public class ProfileDetailsFragment extends Fragment {
         mListener = null;
     }
 
+    private void setDateTimeField() {
+
+        Calendar newCalendar = Calendar.getInstance();
+        dobDatePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                dobEditText.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        dobEditText.setHint(dateFormatter.format(Calendar.getInstance().getTime()));
+
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -121,4 +178,5 @@ public class ProfileDetailsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

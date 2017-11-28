@@ -94,10 +94,16 @@ public class ProfilePicFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                selectImage();
+
             }
         });
         ivImage = (ImageView) rootView.findViewById(R.id.profileImage);
+        ivImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
         return rootView;
 
     }

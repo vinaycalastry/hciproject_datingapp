@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android.testamante.R;
@@ -77,13 +76,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
                 new SwipeItem(2, "LikeDislikes", "")
         );
 
-        Button nextBtn = (Button) findViewById(R.id.profileActivityNextButton);
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
 
