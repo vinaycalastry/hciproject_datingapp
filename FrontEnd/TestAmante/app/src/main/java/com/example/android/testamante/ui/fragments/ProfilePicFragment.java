@@ -25,6 +25,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -63,7 +65,7 @@ public class ProfilePicFragment extends Fragment {
     private FirebaseAuth auth;
     private String firebaseuid;
     private StorageReference mStorageRef;
-
+    private DatabaseReference mDatabase;
     public ProfilePicFragment() {
         // Required empty public constructor
     }
@@ -268,6 +270,9 @@ public class ProfilePicFragment extends Fragment {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
             }
         });
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
+        mDatabase.child("picurl").setValue(profpic_name);
     }
     /**
      * This interface must be implemented by activities that contain this
