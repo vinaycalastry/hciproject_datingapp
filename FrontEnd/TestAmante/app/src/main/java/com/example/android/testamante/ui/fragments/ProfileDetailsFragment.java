@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.android.testamante.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,6 +49,9 @@ public class ProfileDetailsFragment extends Fragment {
     private Spinner interestedInSpinner;
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog dobDatePickerDialog;
+
+    private DatabaseReference mDatabase;
+
 
     public ProfileDetailsFragment() {
         // Required empty public constructor
@@ -119,6 +126,15 @@ public class ProfileDetailsFragment extends Fragment {
         String dob = dobEditText.getText().toString();
         String iamA = String.valueOf(iamASpinner.getSelectedItem());
         String interestedIn = String.valueOf(interestedInSpinner.getSelectedItem());
+
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
+        mDatabase.child("name").setValue(username);
+        mDatabase.child("dob").setValue(dob);
+        mDatabase.child("gender").setValue(iamA);
+        mDatabase.child("interestedin").setValue(interestedIn);
+
     }
 
 
