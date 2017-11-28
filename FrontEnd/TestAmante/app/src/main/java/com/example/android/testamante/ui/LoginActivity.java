@@ -44,12 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_layout);
 
         // create view references here
-        mUserNameView = (AutoCompleteTextView) findViewById(R.id.loginUserName);
-        mUserPasswordView=(AutoCompleteTextView) findViewById(R.id.loginUserPassword);
-        rememberLoginBox=(CheckBox)findViewById(R.id.loginRememberMeCheckBox) ;
+        mUserNameView = findViewById(R.id.loginUserName);
+        mUserPasswordView = findViewById(R.id.loginUserPassword);
+        rememberLoginBox = findViewById(R.id.loginRememberMeCheckBox);
 
 
-        Button signInUserBtn = (Button) findViewById(R.id.loginSignInBtn);
+        Button signInUserBtn = findViewById(R.id.loginSignInBtn);
         signInUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button googleSignInUserBtn = (Button) findViewById(R.id.loginSignInGoogleBtn);
+        Button googleSignInUserBtn = findViewById(R.id.loginSignInGoogleBtn);
         googleSignInUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
 
                                 FirebaseUser user = auth.getCurrentUser();
-                                Intent intent = new Intent(com.example.android.testamante.ui.LoginActivity.this, HomeActivity.class);
+                                Intent intent = new Intent(com.example.android.testamante.ui.LoginActivity.this, ProfileActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {

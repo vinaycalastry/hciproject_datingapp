@@ -24,6 +24,7 @@ import com.example.android.testamante.utils.UtilClass;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -100,7 +101,7 @@ public class ProfilePicFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_profile_pic, container, false);
         // Inflate the layout for this fragment
-        btnSelect = (Button) rootView.findViewById(R.id.selectPictureBtn);
+        btnSelect = rootView.findViewById(R.id.selectPictureBtn);
         btnSelect.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -108,7 +109,7 @@ public class ProfilePicFragment extends Fragment {
 
             }
         });
-        ivImage = (ImageView) rootView.findViewById(R.id.profileImage);
+        ivImage = rootView.findViewById(R.id.profileImage);
         ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -251,9 +252,10 @@ public class ProfilePicFragment extends Fragment {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String profpic_name = currentFirebaseUser.getUid() + ".jpg";
 
-
-        UploadTask uploadTask = mStorageRef.child("profilepictures").putBytes(data);
+        UploadTask uploadTask = mStorageRef.child(profpic_name).putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
