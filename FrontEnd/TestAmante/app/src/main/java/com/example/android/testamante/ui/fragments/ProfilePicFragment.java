@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -20,6 +21,12 @@ import android.widget.ImageView;
 
 import com.example.android.testamante.R;
 import com.example.android.testamante.utils.UtilClass;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,6 +58,10 @@ public class ProfilePicFragment extends Fragment {
     private String userChoosenTask;
 
     private OnFragmentInteractionListener mListener;
+
+    private FirebaseAuth auth;
+    private String firebaseuid;
+    private StorageReference mStorageRef;
 
     public ProfilePicFragment() {
         // Required empty public constructor
@@ -104,6 +115,7 @@ public class ProfilePicFragment extends Fragment {
                 selectImage();
             }
         });
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         return rootView;
 
     }
@@ -216,7 +228,7 @@ public class ProfilePicFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        pushImageToFirebase(thumbnail);
         ivImage.setImageBitmap(thumbnail);
     }
 
@@ -231,10 +243,30 @@ public class ProfilePicFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-
+        pushImageToFirebase(bm);
         ivImage.setImageBitmap(bm);
     }
 
+    private void pushImageToFirebase(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+
+        UploadTask uploadTask = mStorageRef.child("profilepictures").putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            }
+        });
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
