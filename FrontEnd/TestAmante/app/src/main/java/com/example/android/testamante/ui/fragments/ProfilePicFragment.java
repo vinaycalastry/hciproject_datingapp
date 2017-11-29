@@ -19,8 +19,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.android.testamante.R;
 import com.example.android.testamante.utils.UtilClass;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,21 +52,20 @@ public class ProfilePicFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    String profpic_name = currentFirebaseUser.getUid() + ".jpg";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private Button btnSelect;
     private ImageView ivImage;
     private String userChoosenTask;
-
     private OnFragmentInteractionListener mListener;
-
     private FirebaseAuth auth;
     private String firebaseuid;
     private StorageReference mStorageRef;
+    private StorageReference mProfilepicRef;
     private DatabaseReference mDatabase;
     public ProfilePicFragment() {
         // Required empty public constructor
@@ -101,7 +102,7 @@ public class ProfilePicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_profile_pic, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_profile_pic, container, false);
         // Inflate the layout for this fragment
         btnSelect = rootView.findViewById(R.id.selectPictureBtn);
         btnSelect.setOnClickListener(new View.OnClickListener() {
@@ -111,14 +112,25 @@ public class ProfilePicFragment extends Fragment {
 
             }
         });
+
         ivImage = rootView.findViewById(R.id.profileImage);
+        //Get reference to Firebase Storage for the app
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        mProfilepicRef = mStorageRef.child(profpic_name);
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(mProfilepicRef)
+                .error(R.id.profileImage)
+                .into(ivImage);
+
         ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectImage();
             }
         });
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         return rootView;
 
     }
@@ -254,8 +266,7 @@ public class ProfilePicFragment extends Fragment {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String profpic_name = currentFirebaseUser.getUid() + ".jpg";
+
 
         UploadTask uploadTask = mStorageRef.child(profpic_name).putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
