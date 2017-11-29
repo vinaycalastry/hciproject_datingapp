@@ -39,6 +39,10 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:11.6.0'
     compile 'com.roughike:swipe-selector:1.0.6'
 
+    //Simple HTTP client
+    compile 'com.android.volley:volley:1.0.0'
+
+
     // Firebase UI
     // Used in FirebaseUIActivity. The FirebaseUI-Android library has a minSdk level of 16
     // so this library is only included in the minSdkJellybean variant.
@@ -48,6 +52,7 @@ dependencies {
     // app. You can build a 'minSdkGingerbread' variant to test on devices with 9 <= SDK <= 15.
 
 }
+
 
 
 
