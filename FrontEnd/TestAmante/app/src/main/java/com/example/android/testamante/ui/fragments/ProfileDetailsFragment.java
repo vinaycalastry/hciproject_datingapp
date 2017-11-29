@@ -17,8 +17,11 @@ import android.widget.Spinner;
 import com.example.android.testamante.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -90,7 +93,7 @@ public class ProfileDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile_details, container, false);
         usernameEditText = rootView.findViewById(R.id.profileUserName);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-        dobEditText = (EditText) rootView.findViewById(R.id.profileDob);
+        dobEditText = rootView.findViewById(R.id.profileDob);
         dobEditText.setInputType(InputType.TYPE_NULL);
         // Set the current day initially
         setDateTimeField();
@@ -102,12 +105,12 @@ public class ProfileDetailsFragment extends Fragment {
             }
         });
 
-        iamASpinner = (Spinner) rootView.findViewById(R.id.profileGenderSpinner);
-        interestedInSpinner = (Spinner) rootView.findViewById(R.id.profileInterestedIn);
+        iamASpinner = rootView.findViewById(R.id.profileGenderSpinner);
+        interestedInSpinner = rootView.findViewById(R.id.profileInterestedIn);
 
         //Log.v("Spinner",String.valueOf(interestedInSpinner.getSelectedItem()));
 
-        Button nextBtn = (Button) rootView.findViewById(R.id.profileActivityNextButton);
+        Button nextBtn = rootView.findViewById(R.id.profileActivityNextButton);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +119,26 @@ public class ProfileDetailsFragment extends Fragment {
         });
         mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
 
-        usernameEditText.setText(mDatabase.child("name").getKey());
+        // Attach a listener to read the data at our Profiles reference
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (data.child("name").exists()) {
+                        usernameEditText.setText((CharSequence) data.child("name"));
+                    } else {
+                        usernameEditText.setText("Error");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        /*usernameEditText.setText(mDatabase.child("name").getKey());
 
 
         dobEditText.setText(mDatabase.child("dob").getKey());
@@ -132,7 +154,7 @@ public class ProfileDetailsFragment extends Fragment {
         } else {
             interestedInSpinner.setSelection(1);
         }
-
+        */
 
         //      iamASpinner.getAdapter().;
         //mDatabase.child("name").setValue(username);
