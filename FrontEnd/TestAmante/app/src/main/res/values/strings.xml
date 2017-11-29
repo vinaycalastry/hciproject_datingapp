@@ -105,5 +105,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="uploadPic">Upload</string>
+    <string name="about_yourself_hint">Tell us who you are ...</string>
+    <string name="interests_hint">Enter here !!!</string>
+    <string name="occupation_hint">Enter occupation here!!!</string>
+    <string name="save">Save</string>
 
 </resources>

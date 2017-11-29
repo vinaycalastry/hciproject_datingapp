@@ -15,13 +15,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.testamante.R;
+import com.example.android.testamante.ui.fragments.AboutFragment;
 import com.example.android.testamante.ui.fragments.ProfileDetailsFragment;
 import com.example.android.testamante.ui.fragments.ProfilePicFragment;
 import com.roughike.swipeselector.SwipeItem;
 import com.roughike.swipeselector.SwipeSelector;
 
 
-public class ProfileActivity extends AppCompatActivity implements ProfileDetailsFragment.OnFragmentInteractionListener, ProfilePicFragment.OnFragmentInteractionListener {
+public class ProfileActivity extends AppCompatActivity implements ProfileDetailsFragment.OnFragmentInteractionListener, ProfilePicFragment.OnFragmentInteractionListener, AboutFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -162,6 +163,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
 
                 case 1:
                     return ProfilePicFragment.newInstance("", "");
+
+                case 2:
+                    return AboutFragment.newInstance("", "");
 
                 default:
                     return PlaceholderFragment.newInstance(position + 1);

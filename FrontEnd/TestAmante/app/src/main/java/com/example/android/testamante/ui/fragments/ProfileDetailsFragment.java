@@ -104,7 +104,6 @@ public class ProfileDetailsFragment extends Fragment {
         });
 
         iamASpinner = (Spinner) rootView.findViewById(R.id.profileGenderSpinner);
-
         interestedInSpinner = (Spinner) rootView.findViewById(R.id.profileInterestedIn);
 
         //Log.v("Spinner",String.valueOf(interestedInSpinner.getSelectedItem()));
