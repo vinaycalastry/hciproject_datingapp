@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(com.example.android.testamante.ui.LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(com.example.android.testamante.ui.LoginActivity.this, HomeActivity.class);
+                                    Intent intent = new Intent(com.example.android.testamante.ui.LoginActivity.this, MatchProfilesActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
