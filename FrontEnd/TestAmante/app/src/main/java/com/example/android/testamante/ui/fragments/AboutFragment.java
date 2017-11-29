@@ -17,8 +17,11 @@ import android.widget.TextView;
 import com.example.android.testamante.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,9 +91,9 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_about, container, false);
 
-        occupationEditText = (EditText) rootView.findViewById(R.id.profileOccupation);
-        aboutEditText = (EditText) rootView.findViewById(R.id.profileAbout);
-        aboutTextCount = (TextView) rootView.findViewById(R.id.profileAboutCount);
+        occupationEditText = rootView.findViewById(R.id.profileOccupation);
+        aboutEditText = rootView.findViewById(R.id.profileAbout);
+        aboutTextCount = rootView.findViewById(R.id.profileAboutCount);
         aboutEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -110,8 +113,8 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        interestsEditText = (EditText) rootView.findViewById(R.id.profileInterests);
-        interestsTextCount = (TextView) rootView.findViewById(R.id.profileInterestsCount);
+        interestsEditText = rootView.findViewById(R.id.profileInterests);
+        interestsTextCount = rootView.findViewById(R.id.profileInterestsCount);
         interestsEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -130,8 +133,30 @@ public class AboutFragment extends Fragment {
                 interestsTextCount.setText("" + currentLength);
             }
         });
+        mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
+        // Attach a listener to read the data at our Profiles reference
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        Button saveBtn = (Button) rootView.findViewById(R.id.aboutSaveButton);
+                if (dataSnapshot.child("name").getValue() != null) {
+                    aboutEditText.setText((CharSequence) dataSnapshot.child("about").getValue());
+                    //interestsEditText.setText((CharSequence) dataSnapshot.child("interests").getValue());
+                    occupationEditText.setText((CharSequence) dataSnapshot.child("occupation").getValue());
+
+                } else {
+                    aboutEditText.setText("Tell us about you...");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                aboutEditText.setText("Tell us about you...");
+            }
+        });
+
+        Button saveBtn = rootView.findViewById(R.id.aboutSaveButton);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +203,7 @@ public class AboutFragment extends Fragment {
             focusView.requestFocus();
         } else {
         }
-        mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
+
         mDatabase.child("about").setValue(about);
         String [] arr= interests.split(",");
         mDatabase.child("interests").setValue(arr);

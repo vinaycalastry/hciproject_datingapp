@@ -123,18 +123,32 @@ public class ProfileDetailsFragment extends Fragment {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    if (data.child("name").exists()) {
-                        usernameEditText.setText((CharSequence) data.child("name"));
+
+                if (dataSnapshot.child("name").getValue() != null) {
+                    usernameEditText.setText((CharSequence) dataSnapshot.child("name").getValue());
+                    dobEditText.setText((CharSequence) dataSnapshot.child("dob").getValue());
+                    String gender = (String) dataSnapshot.child("dob").getValue();
+                    if (gender.equals(getResources().getStringArray(R.array.gender_array)[0])) {
+                        iamASpinner.setSelection(0);
                     } else {
-                        usernameEditText.setText("Error");
+                        iamASpinner.setSelection(1);
                     }
-                }
+                    String interest = (String) dataSnapshot.child("dob").getValue();
+                    if (interest.equals(getResources().getStringArray(R.array.gender_array)[0])) {
+                        interestedInSpinner.setSelection(0);
+                    } else {
+                        interestedInSpinner.setSelection(1);
+                    }
+
+                    } else {
+                    usernameEditText.setText("Enter Name");
+                    }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                usernameEditText.setText("Enter Name");
             }
         });
 
