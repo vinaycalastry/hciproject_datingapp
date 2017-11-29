@@ -65,8 +65,8 @@ function matchDate(profId, interestList){
 			for(var i=0; i<interestList.length;i++){
 			  for(var j=0; j<likes.length ;j++){
 				  if(interestList[i].toLowerCase()==likes[j].toLowerCase()){
-						objarr[0]=key;
-						objarr[1]=picurl;
+						objarr["profileid"]=key;
+						objarr["picurl"]=picurl;
 						matchedID.push(objarr);
 						vig=1;
 				  }
