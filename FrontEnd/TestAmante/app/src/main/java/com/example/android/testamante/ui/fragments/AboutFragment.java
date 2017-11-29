@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class AboutFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private String interests = "";
     private EditText occupationEditText;
     private EditText aboutEditText;
     private TextView aboutTextCount;
@@ -147,6 +149,22 @@ public class AboutFragment extends Fragment {
                     //interestsEditText.setText((CharSequence) dataSnapshot.child("interests").getValue());
                     occupationEditText.setText((CharSequence) dataSnapshot.child("occupation").getValue());
 
+                    try {
+                        List<String> list = (ArrayList<String>) dataSnapshot.child("interests").getValue();
+                        for (int i = 0; i < list.size(); i++) {
+                            if (interests.trim().length() > 0) {
+                                interests = interests + ",";
+                            }
+
+                            interests = interests + list.get(i);
+
+
+                        }
+
+                        interestsEditText.setText(interests);
+                    } catch (Exception e) {
+                        Log.e("JSONArray", e.toString());
+                    }
                 } else {
                     aboutEditText.setText("Tell us about you...");
                 }
