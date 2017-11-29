@@ -127,13 +127,13 @@ public class ProfileDetailsFragment extends Fragment {
                 if (dataSnapshot.child("name").getValue() != null) {
                     usernameEditText.setText((CharSequence) dataSnapshot.child("name").getValue());
                     dobEditText.setText((CharSequence) dataSnapshot.child("dob").getValue());
-                    String gender = (String) dataSnapshot.child("dob").getValue();
+                    String gender = (String) dataSnapshot.child("gender").getValue();
                     if (gender.equals(getResources().getStringArray(R.array.gender_array)[0])) {
                         iamASpinner.setSelection(0);
                     } else {
                         iamASpinner.setSelection(1);
                     }
-                    String interest = (String) dataSnapshot.child("dob").getValue();
+                    String interest = (String) dataSnapshot.child("interestedin").getValue();
                     if (interest.equals(getResources().getStringArray(R.array.gender_array)[0])) {
                         interestedInSpinner.setSelection(0);
                     } else {
