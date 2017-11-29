@@ -109,5 +109,6 @@
     <string name="interests_hint">Enter here !!!</string>
     <string name="occupation_hint">Enter occupation here!!!</string>
     <string name="save">Save</string>
+    <string name="message">Message</string>
 
 </resources>

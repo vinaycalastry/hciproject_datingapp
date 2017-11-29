@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.testamante.ui.MatchProfilesActivity">
+    <item
+        android:id="@+id/match_profile"
+        android:orderInCategory="100"
+        android:title="profile"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/match_logout"
+        android:orderInCategory="100"
+        android:title="logout"
+        app:showAsAction="never" />
+</menu>
