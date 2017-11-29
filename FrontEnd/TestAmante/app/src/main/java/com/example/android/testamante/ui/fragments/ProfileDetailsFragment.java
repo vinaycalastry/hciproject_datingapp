@@ -41,7 +41,6 @@ public class ProfileDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
     private EditText usernameEditText;
     private EditText dobEditText;
@@ -51,8 +50,8 @@ public class ProfileDetailsFragment extends Fragment {
     private DatePickerDialog dobDatePickerDialog;
 
     private DatabaseReference mDatabase;
-
-
+    private FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public ProfileDetailsFragment() {
         // Required empty public constructor
     }
@@ -115,7 +114,31 @@ public class ProfileDetailsFragment extends Fragment {
                 attemptSave();
             }
         });
+        mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
 
+        usernameEditText.setText(mDatabase.child("name").getKey());
+
+
+        dobEditText.setText(mDatabase.child("dob").getKey());
+        String gender = mDatabase.child("gender").getKey();
+        if (gender.equals(getResources().getStringArray(R.array.gender_array)[0])) {
+            iamASpinner.setSelection(0);
+        } else {
+            iamASpinner.setSelection(1);
+        }
+        String interest = mDatabase.child("interestedin").getKey();
+        if (interest.equals(getResources().getStringArray(R.array.gender_array)[0])) {
+            interestedInSpinner.setSelection(0);
+        } else {
+            interestedInSpinner.setSelection(1);
+        }
+
+
+        //      iamASpinner.getAdapter().;
+        //mDatabase.child("name").setValue(username);
+        //mDatabase.child("dob").setValue(dob);
+        // mDatabase.child("gender").setValue();
+        //  mDatabase.child("interestedin").setValue(interestedIn);
         return rootView;
     }
 
@@ -126,8 +149,6 @@ public class ProfileDetailsFragment extends Fragment {
         String iamA = String.valueOf(iamASpinner.getSelectedItem());
         String interestedIn = String.valueOf(interestedInSpinner.getSelectedItem());
 
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
         mDatabase.child("name").setValue(username);
         mDatabase.child("dob").setValue(dob);
