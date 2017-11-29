@@ -5,30 +5,17 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
     android:fitsSystemWindows="true"
     tools:context="com.example.android.testamante.ui.ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp">
-
-        <ImageView
-            android:id="@+id/formLogo"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="20dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_logo" />
+        android:layout_height="match_parent">
 
         <com.roughike.swipeselector.SwipeSelector
             android:id="@+id/conditionSelector"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/formLogo"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/rounded_white"
             app:swipe_descriptionGravity="center"
             app:swipe_indicatorActiveColor="@color/swipe_selector_active_color"
             app:swipe_indicatorInActiveColor="@color/swipeselector_color_indicator_inactive"

@@ -26,8 +26,7 @@
         <activity android:name=".ui.RegisterActivity" />
         <activity
             android:name=".ui.ProfileActivity"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_profile" />
         <activity android:name=".ui.MatchProfilesActivity"></activity>
     </application>
 

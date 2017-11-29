@@ -49,7 +49,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="Name"
-                    android:textSize="18sp"></TextView>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/profileUserName"
@@ -82,7 +83,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="D.O.B"
-                    android:textSize="18sp"></TextView>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/profileDob"
@@ -115,7 +117,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="I am a"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/profileGenderSpinner"
@@ -145,7 +148,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="Interested In"
-                    android:textSize="18sp"></TextView>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/profileInterestedIn"
