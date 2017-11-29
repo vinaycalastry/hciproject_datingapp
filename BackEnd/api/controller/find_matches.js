@@ -23,11 +23,12 @@ const database = firebase.database();
     profileRef.on("value", function(snapshot) {
         
         var interests = snapshot.child('interests').val();
+		var interestedin = snapshot.child('interested').val();
 		console.log(interests);
 		if(interests == null){
 			res.status(200).json("No matches found");
 		}
-        matchDate(profileId, interests).then(function(matchID){
+        matchDate(profileId, interests,interestedin).then(function(matchID){
           console.log("test:"+matchID);
           res.status(200).json(matchID);  
         }).catch(function(err){
@@ -42,7 +43,7 @@ const database = firebase.database();
 
 
 //Match with potential algorithm
-function matchDate(profId, interestList){
+function matchDate(profId, interestList,interestedin){
 
   return new Promise(function(resolve, reject){
     try{
@@ -57,12 +58,17 @@ function matchDate(profId, interestList){
 		  var objarr={};
           var childref = database.ref('Profiles/0/').child(key);
 		  var likes = snapshot.child(key).child('interests').val();
+		  var interested = snapshot.child(key).child('interested').val();
+		 
 		
        	  var picurl = snapshot.child(key).child('picurl').val();
 		  console.log(likes+" "+picurl);
 		var vig=0;
 		 if(likes!=null){
 			for(var i=0; i<interestList.length;i++){
+				 if(interested != interestedin) {
+			  break;
+		  }
 			  for(var j=0; j<likes.length ;j++){
 				  if(interestList[i].toLowerCase()==likes[j].toLowerCase()){
 						objarr["profileid"]=key;

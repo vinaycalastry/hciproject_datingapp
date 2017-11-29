@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.android.testamante.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +46,10 @@ public class AboutFragment extends Fragment {
     private TextView interestsTextCount;
 
     private OnFragmentInteractionListener mListener;
+
+    private DatabaseReference mDatabase;
+    private FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     public AboutFragment() {
         // Required empty public constructor
@@ -141,9 +149,9 @@ public class AboutFragment extends Fragment {
         occupationEditText.setError(null);
 
         // Store values at the time of the register attempt.
-        String about = aboutEditText.getText().toString();
-        String interests = interestsEditText.getText().toString();
-        String occupation = occupationEditText.getText().toString();
+        String about = aboutEditText.getText().toString().trim();
+        String interests = interestsEditText.getText().toString().trim();
+        String occupation = occupationEditText.getText().toString().trim();
 
         boolean isInValid = false;
         View focusView = null;
@@ -170,6 +178,13 @@ public class AboutFragment extends Fragment {
             focusView.requestFocus();
         } else {
         }
+        mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
+        mDatabase.child("about").setValue(about);
+        String [] arr= interests.split(",");
+        mDatabase.child("interests").setValue(arr);
+        mDatabase.child("occupation").setValue(occupation);
+
+
 
     }
 
