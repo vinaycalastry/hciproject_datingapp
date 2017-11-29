@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -206,7 +209,8 @@ public class AboutFragment extends Fragment {
 
         mDatabase.child("about").setValue(about);
         String [] arr= interests.split(",");
-        mDatabase.child("interests").setValue(arr);
+        List list = (List) Arrays.asList(arr);
+        mDatabase.child("interests").setValue(list);
         mDatabase.child("occupation").setValue(occupation);
 
 
