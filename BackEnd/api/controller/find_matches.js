@@ -15,16 +15,18 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 const database = firebase.database();
 
-var matchedPeople=[];
-//Get request getMatches handler
-module.exports.getMatches = function(req, res){    
+	var matchedPeople=[];
+	//Get request getMatches handler
+	module.exports.getMatches = function(req, res){    
     var profileId = req.params.profId;
     var profileRef = database.ref('Profiles/0/').child(profileId);
     profileRef.on("value", function(snapshot) {
         
         var interests = snapshot.child('interests').val();
-        //var dislikes = snapshot.child('dislikes').val();
-
+		console.log(interests);
+		if(interests == null){
+			res.status(200).json("No matches found");
+		}
         matchDate(profileId, interests).then(function(matchID){
           console.log("test:"+matchID);
           res.status(200).json(matchID);  
@@ -49,27 +51,40 @@ function matchDate(profId, interestList){
     query.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
+		if(matchedID !=9){
           var key = childSnapshot.key;
-        var objarr={};
-         var childref = database.ref('Profiles/0/').child(key);
-         var likes = snapshot.child('likes').val();
-         var dislikes = snapshot.child('dislikes').val();
-      var picurl = snapshot.child('picurl').val();
-     var vig=0;
-     objarr={};
-     if(checkEquals(likes,likeList)!=-1 && key!=profId){
-       objarr[0]=key;
-       objarr[1]=picurl;
-       matchedID.push(objarr);
-       vig=1;
-     }
-     if(checkEquals(dislikes,dislikeList)!=-1 && key!=profId && vig==0){
-       objarr[0]=key;
-       objarr[1]=picurl;
-       matchedID.push(objarr);
-     }       
-          var childData = childSnapshot.val();
-      });
+		  console.log(key);
+		  var objarr={};
+          var childref = database.ref('Profiles/0/').child(key);
+		  var likes = snapshot.child(key).child('interests').val();
+		
+       	  var picurl = snapshot.child(key).child('picurl').val();
+		  console.log(likes+" "+picurl);
+		var vig=0;
+		 if(likes!=null){
+			for(var i=0; i<interestList.length;i++){
+			  for(var j=0; j<likes.length ;j++){
+				  if(interestList[i].toLowerCase()==likes[j].toLowerCase()){
+						objarr[0]=key;
+						objarr[1]=picurl;
+						matchedID.push(objarr);
+						vig=1;
+				  }
+				  if(vig ==1){
+					  break;
+				  }
+				  
+			  }
+			    if(vig ==1){
+					  break;
+				  }
+			  
+		 }
+		
+		objarr={};
+		 }
+        //var childData = childSnapshot.val();
+		}});
       console.log(matchedID);
       resolve(matchedID);
     });
