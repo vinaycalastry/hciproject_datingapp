@@ -114,7 +114,6 @@ public class ProfilePicFragment extends Fragment {
             public void onClick(View v) {
                 if (selectedImageBitmap != null) {
                     pushImageToFirebase(selectedImageBitmap);
-
                 }
                 if (mListener != null) {
                     mListener.onFragmentInteraction(1);
@@ -131,7 +130,7 @@ public class ProfilePicFragment extends Fragment {
         Glide.with(this)
                 .using(new FirebaseImageLoader())
                 .load(mProfilepicRef)
-                .error(R.id.profileImage)
+                .error(R.drawable.add_profile_picture)
                 .into(ivImage);
 
         ivImage.setOnClickListener(new View.OnClickListener() {

@@ -44,9 +44,11 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
 
         Intent extras = getIntent();
         Bundle extasBundle = extras.getExtras();
-        if (!extasBundle.isEmpty()) {
-            fromMatching = (Boolean) extras.getExtras().get("fromMatches");
-            //Log.v("From",(Boolean)extras.getExtras().get("fromMatches")+"");
+        if (extasBundle != null) {
+            if (!extasBundle.isEmpty()) {
+                fromMatching = (Boolean) extras.getExtras().get("fromMatches");
+                //Log.v("From",(Boolean)extras.getExtras().get("fromMatches")+"");
+            }
         } else {
             fromMatching = false;
         }
@@ -57,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -77,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
             }
         });
 
-        swipeSelector = (SwipeSelector) findViewById(R.id.conditionSelector);
+        swipeSelector = findViewById(R.id.conditionSelector);
         swipeSelector.setItems(
                 new SwipeItem(0, "Profile Information", ""),
                 new SwipeItem(1, "Profile Picture", ""),
