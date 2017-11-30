@@ -143,6 +143,9 @@ public class ProfileDetailsFragment extends Fragment {
 
                     } else {
                     usernameEditText.setText("Enter Name");
+                    dobEditText.setText("09-10-1992");
+                    iamASpinner.setSelection(1);
+                    interestedInSpinner.setSelection(1);
                     }
 
             }
@@ -150,6 +153,9 @@ public class ProfileDetailsFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 usernameEditText.setText("Enter Name");
+                dobEditText.setText("09-10-1992");
+                iamASpinner.setSelection(1);
+                interestedInSpinner.setSelection(1);
             }
         });
 
