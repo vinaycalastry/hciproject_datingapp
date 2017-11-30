@@ -2,7 +2,6 @@ package com.example.android.testamante.ui.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -190,17 +189,14 @@ public class ProfileDetailsFragment extends Fragment {
         mDatabase.child("dob").setValue(dob);
         mDatabase.child("gender").setValue(iamA);
         mDatabase.child("interestedin").setValue(interestedIn);
-
-    }
-
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(0);
         }
     }
+
+
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -248,7 +244,7 @@ public class ProfileDetailsFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int i);
     }
 
 }

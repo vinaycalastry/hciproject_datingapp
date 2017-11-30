@@ -1,6 +1,6 @@
 package com.example.android.testamante.ui;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,11 +35,22 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
      */
     private ViewPager mViewPager;
     private SwipeSelector swipeSelector;
+    private Boolean fromMatching;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        Intent extras = getIntent();
+        Bundle extasBundle = extras.getExtras();
+        if (!extasBundle.isEmpty()) {
+            fromMatching = (Boolean) extras.getExtras().get("fromMatches");
+            //Log.v("From",(Boolean)extras.getExtras().get("fromMatches")+"");
+        } else {
+            fromMatching = false;
+        }
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -98,11 +109,25 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onFragmentInteraction(int i) {
+        switch (i) {
+            case 0:
+                mViewPager.setCurrentItem(i + 1);
+                break;
+            case 1:
+                mViewPager.setCurrentItem(i + 1);
+                break;
+            case 2:
+                if (fromMatching) {
+                    finish();
+                } else {
+                    startActivity(new Intent(this, MatchProfilesActivity.class));
+                    finish();
+                }
+        }
     }
-
 
 
     /**

@@ -1,7 +1,6 @@
 package com.example.android.testamante.ui.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -223,24 +222,20 @@ public class AboutFragment extends Fragment {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            mDatabase.child("about").setValue(about);
+            String[] arr = interests.split(",");
+            List list = (List) Arrays.asList(arr);
+            mDatabase.child("interests").setValue(list);
+            mDatabase.child("occupation").setValue(occupation);
+
+            if (mListener != null) {
+                mListener.onFragmentInteraction(2);
+            }
         }
-
-        mDatabase.child("about").setValue(about);
-        String [] arr= interests.split(",");
-        List list = (List) Arrays.asList(arr);
-        mDatabase.child("interests").setValue(list);
-        mDatabase.child("occupation").setValue(occupation);
-
 
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -271,6 +266,6 @@ public class AboutFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int i);
     }
 }

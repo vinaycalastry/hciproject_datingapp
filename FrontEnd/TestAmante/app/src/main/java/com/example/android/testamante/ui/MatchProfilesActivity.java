@@ -114,6 +114,7 @@ public class MatchProfilesActivity extends AppCompatActivity {
 
             case R.id.match_profile:
                 Intent intent = new Intent(this, ProfileActivity.class);
+                intent.putExtra("fromMatches", true);
                 startActivity(intent);
                 //finish();
                 return true;

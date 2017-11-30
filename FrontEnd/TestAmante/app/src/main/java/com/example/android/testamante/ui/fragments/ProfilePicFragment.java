@@ -136,13 +136,6 @@ public class ProfilePicFragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -285,6 +278,9 @@ public class ProfilePicFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
         mDatabase.child("picurl").setValue(profpic_name);
+        if (mListener != null) {
+            mListener.onFragmentInteraction(1);
+        }
     }
     /**
      * This interface must be implemented by activities that contain this
@@ -298,7 +294,7 @@ public class ProfilePicFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int i);
     }
 
 }
