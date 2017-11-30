@@ -31,7 +31,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(com.example.android.testamante.ui.SplashActivity.this, MatchProfilesActivity.class)); // Just for Testing Profile
+            Intent i = new Intent(com.example.android.testamante.ui.SplashActivity.this, MatchProfilesActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i); // Just for Testing Profile
             finish();
         }
         else{

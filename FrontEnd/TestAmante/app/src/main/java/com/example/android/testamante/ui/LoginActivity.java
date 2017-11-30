@@ -138,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     Intent intent = new Intent(com.example.android.testamante.ui.LoginActivity.this, MatchProfilesActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -164,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 FirebaseUser user = auth.getCurrentUser();
                                 Intent intent = new Intent(com.example.android.testamante.ui.LoginActivity.this, ProfileActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finish();
                             } else {

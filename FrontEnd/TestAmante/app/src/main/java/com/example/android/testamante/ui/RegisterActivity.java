@@ -120,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 //Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = auth.getCurrentUser();
                                 Intent intent = new Intent(com.example.android.testamante.ui.RegisterActivity.this, ProfileActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finish();
                             } else {
