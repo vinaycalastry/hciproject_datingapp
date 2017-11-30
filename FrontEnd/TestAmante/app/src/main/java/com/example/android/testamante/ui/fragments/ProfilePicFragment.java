@@ -247,7 +247,7 @@ public class ProfilePicFragment extends Fragment {
         }
         selectedImageBitmap = thumbnail;
         //pushImageToFirebase(thumbnail);
-        ivImage.setImageBitmap(thumbnail);
+        ivImage.setImageBitmap(selectedImageBitmap);
     }
 
     @SuppressWarnings("deprecation")
@@ -262,7 +262,7 @@ public class ProfilePicFragment extends Fragment {
             }
         }
         selectedImageBitmap = bm;
-        ivImage.setImageBitmap(bm);
+        ivImage.setImageBitmap(selectedImageBitmap);
     }
 
     private void pushImageToFirebase(Bitmap bmp) {
