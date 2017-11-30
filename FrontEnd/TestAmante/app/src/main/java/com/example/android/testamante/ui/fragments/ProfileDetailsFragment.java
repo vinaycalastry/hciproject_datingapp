@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.android.testamante.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -151,29 +153,6 @@ public class ProfileDetailsFragment extends Fragment {
             }
         });
 
-        /*usernameEditText.setText(mDatabase.child("name").getKey());
-
-
-        dobEditText.setText(mDatabase.child("dob").getKey());
-        String gender = mDatabase.child("gender").getKey();
-        if (gender.equals(getResources().getStringArray(R.array.gender_array)[0])) {
-            iamASpinner.setSelection(0);
-        } else {
-            iamASpinner.setSelection(1);
-        }
-        String interest = mDatabase.child("interestedin").getKey();
-        if (interest.equals(getResources().getStringArray(R.array.gender_array)[0])) {
-            interestedInSpinner.setSelection(0);
-        } else {
-            interestedInSpinner.setSelection(1);
-        }
-        */
-
-        //      iamASpinner.getAdapter().;
-        //mDatabase.child("name").setValue(username);
-        //mDatabase.child("dob").setValue(dob);
-        // mDatabase.child("gender").setValue();
-        //  mDatabase.child("interestedin").setValue(interestedIn);
         return rootView;
     }
 
@@ -183,6 +162,28 @@ public class ProfileDetailsFragment extends Fragment {
         String dob = dobEditText.getText().toString();
         String iamA = String.valueOf(iamASpinner.getSelectedItem());
         String interestedIn = String.valueOf(interestedInSpinner.getSelectedItem());
+
+        View focusView = null;
+
+        if (TextUtils.isEmpty(username)) {
+            Toast.makeText(getContext(), "Please fill Username",
+                    Toast.LENGTH_SHORT).show();
+            focusView = usernameEditText;
+
+        } else if (TextUtils.isEmpty(dob)) {
+            Toast.makeText(getContext(), "Please fill DOB",
+                    Toast.LENGTH_SHORT).show();
+            focusView = dobEditText;
+        } else if (TextUtils.isEmpty(iamA)) {
+            Toast.makeText(getContext(), "Please select your gender",
+                    Toast.LENGTH_SHORT).show();
+            focusView = iamASpinner;
+        } else if (TextUtils.isEmpty(interestedIn)) {
+            Toast.makeText(getContext(), "Please select your gender",
+                    Toast.LENGTH_SHORT).show();
+            focusView = interestedInSpinner;
+        }
+
 
         mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
         mDatabase.child("name").setValue(username);
