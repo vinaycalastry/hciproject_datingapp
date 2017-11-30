@@ -21,6 +21,11 @@ import com.example.android.testamante.adapters.MatchesListAdapter;
 import com.example.android.testamante.models.MatchedProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +38,8 @@ public class MatchProfilesActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private RecyclerView matchesRecylerView;
     private ArrayList<MatchedProfile> matchedProfileList;
-
+    private DatabaseReference mDatabase;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,24 @@ public class MatchProfilesActivity extends AppCompatActivity {
                                 MatchedProfile mProfile = new MatchedProfile();
                                 mProfile.setProfileID(matchedProfile.getString("profileid"));
                                 mProfile.setProfilePicURL(matchedProfile.getString("picurl"));
+                                mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(mProfile.getProfileID());
+                                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                             @Override
+                                                                             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                                 if (dataSnapshot.child("about").getValue() != null) {
+                                                                                     Log.i("information", (String) dataSnapshot.child("about").getValue());
+
+                                                                                 }
+                                                                             }
+
+                                                                             @Override
+                                                                             public void onCancelled(DatabaseError databaseError) {
+
+                                                                             }
+                                                                         }
+                                );
+
                                 matchedProfileList.add(mProfile);
 
                             }

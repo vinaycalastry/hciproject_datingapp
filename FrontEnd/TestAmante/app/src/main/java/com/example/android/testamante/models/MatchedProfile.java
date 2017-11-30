@@ -8,6 +8,17 @@ public class MatchedProfile {
 
     private String profileID;
     private String profilePicURL;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 
     public String getProfileID() {
         return profileID;
