@@ -72,6 +72,7 @@ public class MatchesListAdapter extends
         }
     }
 
+
     @Override
     public int getItemCount() {
         return matchedProfilesList.size();

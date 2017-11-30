@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.android.testamante.R;
@@ -33,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private AutoCompleteTextView mUserNameView;
     private AutoCompleteTextView mUserPasswordView;
-    private CheckBox rememberLoginBox;
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -46,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         // create view references here
         mUserNameView = findViewById(R.id.loginUserName);
         mUserPasswordView = findViewById(R.id.loginUserPassword);
-        rememberLoginBox = findViewById(R.id.loginRememberMeCheckBox);
 
 
         Button signInUserBtn = findViewById(R.id.loginSignInBtn);
@@ -119,8 +116,6 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
 
-            // perform the user login attempt.
-            boolean rememberLogin = rememberLoginBox.isChecked();
 
             if (UtilClass.isNetworkAvailable(this)) {
                 // check user login

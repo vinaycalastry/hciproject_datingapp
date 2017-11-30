@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,13 +42,40 @@ public class MatchProfilesActivity extends AppCompatActivity {
     private ArrayList<MatchedProfile> matchedProfileList;
     private DatabaseReference mDatabase;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private TextView noMatchesTextView;
+    private MatchesListAdapter matchesListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_profiles);
 
-        matchedProfileList = new ArrayList<>(0);
+        noMatchesTextView = (TextView) findViewById(R.id.noMatchesHint);
 
+
+        matchedProfileList = new ArrayList<>(0);
+        fetchAndSaveProfiles();
+
+        matchesRecylerView = (RecyclerView) findViewById(R.id.matchesRecyclerView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        matchesRecylerView.setLayoutManager(gridLayoutManager);
+        matchesRecylerView.setHasFixedSize(true);
+
+        matchesListAdapter = new MatchesListAdapter(this, matchedProfileList);
+        matchesRecylerView.setAdapter(matchesListAdapter);
+
+    }
+
+    private void updateRecyclerView() {
+        if (matchedProfileList.size() == 0) {
+            noMatchesTextView.setVisibility(View.VISIBLE);
+        } else {
+            matchesListAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    private void fetchAndSaveProfiles() {
         RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://limitless-forest-94438.herokuapp.com/findmatch/";
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -56,7 +85,7 @@ public class MatchProfilesActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.d("Response", response.toString());
+                        //Log.d("Response", response.toString());
                         // Process the JSON
                         try {
                             // Loop through the array elements
@@ -64,16 +93,18 @@ public class MatchProfilesActivity extends AppCompatActivity {
                                 // Get current json object
                                 JSONObject matchedProfile = response.getJSONObject(i);
 
-                                MatchedProfile mProfile = new MatchedProfile();
+                                final MatchedProfile mProfile = new MatchedProfile();
                                 mProfile.setProfileID(matchedProfile.getString("profileid"));
                                 mProfile.setProfilePicURL(matchedProfile.getString("picurl"));
+                                mProfile.setDescription("Description Not Available !!!");
                                 mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(mProfile.getProfileID());
                                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                              @Override
                                                                              public void onDataChange(DataSnapshot dataSnapshot) {
 
                                                                                  if (dataSnapshot.child("about").getValue() != null) {
-                                                                                     Log.i("information", (String) dataSnapshot.child("about").getValue());
+                                                                                     mProfile.setDescription((String) dataSnapshot.child("about").getValue());
+                                                                                     //Log.i("information", (String) dataSnapshot.child("about").getValue());
 
                                                                                  }
                                                                              }
@@ -84,39 +115,24 @@ public class MatchProfilesActivity extends AppCompatActivity {
                                                                              }
                                                                          }
                                 );
-
                                 matchedProfileList.add(mProfile);
-
                             }
                             updateRecyclerView();
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            updateRecyclerView();
                         }
-
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Error.Response", error.toString());
+                        updateRecyclerView();
                     }
                 }
         );
         queue.add(getRequest);
-
-        matchesRecylerView = (RecyclerView) findViewById(R.id.matchesRecyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-        matchesRecylerView.setLayoutManager(gridLayoutManager);
-        matchesRecylerView.setHasFixedSize(true);
-
-//        MatchesListAdapter matchesListAdapter= new MatchesListAdapter(this,matchedProfileList);
-//        matchesRecylerView.setAdapter(matchesListAdapter);
-    }
-
-    private void updateRecyclerView() {
-        MatchesListAdapter matchesListAdapter = new MatchesListAdapter(this, matchedProfileList);
-        matchesRecylerView.setAdapter(matchesListAdapter);
     }
 
     @Override

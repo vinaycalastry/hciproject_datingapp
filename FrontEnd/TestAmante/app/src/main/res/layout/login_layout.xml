@@ -2,130 +2,123 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background">
+    android:background="@drawable/app_background">
 
     <ImageView
+        android:id="@+id/formLogo"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:id="@+id/formLogo"
-        android:src="@drawable/ic_logo"
-        android:scaleType="fitCenter"
         android:layout_marginBottom="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_logo"
         />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/formLogo"
-        android:id="@+id/scrollView"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical"
             >
 
             <AutoCompleteTextView
 
+                android:id="@+id/loginUserName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="Email"
-                android:background="@drawable/rounded_white"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:drawableLeft="@drawable/ic_user_icon"
-                android:textSize="14sp"
-                android:drawablePadding="5dp"
-                android:paddingStart="10dp"
-                android:id="@+id/loginUserName"
                 android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_white"
+                android:drawableLeft="@drawable/ic_user_icon"
+                android:drawablePadding="5dp"
+                android:hint="Email"
                 android:maxLines="1"
-                android:singleLine="true"
                 android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:singleLine="true"
+                android:textSize="14sp"
                 />
             <AutoCompleteTextView
+                android:id="@+id/loginUserPassword"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="Password"
-                android:background="@drawable/rounded_white"
-                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/rounded_white"
                 android:drawableLeft="@drawable/ic_pass_icon"
-                android:textSize="14sp"
                 android:drawablePadding="5dp"
-                android:paddingStart="10dp"
+                android:hint="Password"
                 android:inputType="textPassword"
-                android:id="@+id/loginUserPassword"
-                android:layout_marginBottom="10dp"
                 android:maxLines="1"
-                android:singleLine="true"
                 android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:singleLine="true"
+                android:textSize="14sp"
                 />
-            <CheckBox
-                android:id="@+id/loginRememberMeCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:textColor="#fff"
-                android:text="Remember me "
-                android:paddingLeft="5dp"/>
+
 
             <Button
                 android:id="@+id/loginSignInBtn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:text="Sign in"
-                android:textStyle="normal"
-                android:background="@drawable/rounded_btn"
                 android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_btn"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:text="Sign in"
+                android:textColor="@color/white"
+                android:textStyle="normal"
                 />
             <TextView
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OR "
-                android:gravity="center"
                 android:layout_gravity="center"
-                style="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#fff"
+                android:gravity="center"
                 android:padding="8dp"
+                android:text="OR "
+                android:textColor="#fff"
                 />
             <Button
                 android:id="@+id/loginSignInGoogleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:text="Sign in with Google"
-                android:textStyle="normal"
-                android:background="@drawable/rounded_btn"
                 android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/rounded_btn"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
 
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:text="Sign in with Google"
+                android:textColor="@color/white"
+                android:textStyle="normal"
                 />
 
             <TextView
                 android:id="@+id/loginForgotPassword"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forgot your Password? "
-                style="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#fff"
-                android:padding="16dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
-                android:layout_marginBottom="16dp"/>
+                android:padding="16dp"
+                android:text="Forgot your Password? "
+                android:textColor="#fff" />
         </LinearLayout>
 
     </ScrollView>
