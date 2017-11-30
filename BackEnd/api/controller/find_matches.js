@@ -60,7 +60,7 @@ function matchDate(profId, interestList,interestedin){
     query.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-		if(matchedID !=9){
+		if(matchedID !=9 && childSnapshot.key!=profId){
           var key = childSnapshot.key;
 		  console.log(key);
 		  var objarr={};
