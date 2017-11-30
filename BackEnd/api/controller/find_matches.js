@@ -26,15 +26,23 @@ const database = firebase.database();
 		var interestedin = snapshot.child('interested').val();
 		console.log(interests);
 		if(interests == null){
-			res.status(200).json("No matches found");
-		}
+			matchedPeople[0]="Please provide your interests in Profile section for finding matches";
+			res.status(200).json(matchedPeople);
+		}else{
         matchDate(profileId, interests,interestedin).then(function(matchID){
           console.log("test:"+matchID);
-          res.status(200).json(matchID);  
+		  if(matchID == null){
+			matchedPeople[0]="No Matches found!!!";
+			console.log("test:"+matchedPeople);
+			res.status(200).json(matchedPeople);
+		  }
+		  else{
+			res.status(200).json(matchID);  
+		  }
         }).catch(function(err){
           res.status(404).json({error:err});
         });
-      }, function (errorObject) {
+	}}, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
     
@@ -70,7 +78,7 @@ function matchDate(profId, interestList,interestedin){
 			  break;
 		  }
 			  for(var j=0; j<likes.length ;j++){
-				  if(interestList[i].toLowerCase()==likes[j].toLowerCase()){
+				  if(interestList[i].trim().toLowerCase()==likes[j].trim().toLowerCase()){
 						objarr["profileid"]=key;
 						objarr["picurl"]=picurl;
 						matchedID.push(objarr);
