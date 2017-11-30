@@ -67,6 +67,7 @@ public class ProfilePicFragment extends Fragment {
     private StorageReference mStorageRef;
     private StorageReference mProfilepicRef;
     private DatabaseReference mDatabase;
+    private Bitmap selectedImageBitmap;
     public ProfilePicFragment() {
         // Required empty public constructor
     }
@@ -96,6 +97,7 @@ public class ProfilePicFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        selectedImageBitmap = null;
     }
 
 
@@ -110,6 +112,13 @@ public class ProfilePicFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+                if (selectedImageBitmap != null) {
+                    pushImageToFirebase(selectedImageBitmap);
+
+                }
+                if (mListener != null) {
+                    mListener.onFragmentInteraction(1);
+                }
 
             }
         });
@@ -237,7 +246,8 @@ public class ProfilePicFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pushImageToFirebase(thumbnail);
+        selectedImageBitmap = thumbnail;
+        //pushImageToFirebase(thumbnail);
         ivImage.setImageBitmap(thumbnail);
     }
 
@@ -252,7 +262,7 @@ public class ProfilePicFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-        pushImageToFirebase(bm);
+        selectedImageBitmap = bm;
         ivImage.setImageBitmap(bm);
     }
 
@@ -278,9 +288,7 @@ public class ProfilePicFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(currentFirebaseUser.getUid());
         mDatabase.child("picurl").setValue(profpic_name);
-        if (mListener != null) {
-            mListener.onFragmentInteraction(1);
-        }
+
     }
     /**
      * This interface must be implemented by activities that contain this
