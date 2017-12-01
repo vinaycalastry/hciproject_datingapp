@@ -67,7 +67,8 @@ function matchDate(profId, interestList,interestedin){
           var childref = database.ref('Profiles/0/').child(key);
 		  var likes = snapshot.child(key).child('interests').val();
 		  var interested = snapshot.child(key).child('interested').val();
-		 
+			var about = snapshot.child(key).child('about').val();
+			var name = snapshot.child(key).child('name').val();
 		
        	  var picurl = snapshot.child(key).child('picurl').val();
 		  console.log(likes+" "+picurl);
@@ -81,6 +82,8 @@ function matchDate(profId, interestList,interestedin){
 				  if(interestList[i].trim().toLowerCase()==likes[j].trim().toLowerCase()){
 						objarr["profileid"]=key;
 						objarr["picurl"]=picurl;
+						objarr["about"]=about;
+						objarr["profname"]=name;
 						matchedID.push(objarr);
 						vig=1;
 				  }
