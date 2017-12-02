@@ -225,6 +225,7 @@ public class AboutFragment extends Fragment {
             mDatabase.child("about").setValue(about);
             String[] arr = interests.split(",");
             List list = (List) Arrays.asList(arr);
+            mDatabase.child("interests").removeValue();
             mDatabase.child("interests").setValue(list);
             mDatabase.child("occupation").setValue(occupation);
 

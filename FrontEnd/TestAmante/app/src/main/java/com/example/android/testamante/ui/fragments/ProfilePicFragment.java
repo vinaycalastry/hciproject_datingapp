@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.android.testamante.R;
 import com.example.android.testamante.utils.UtilClass;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -131,6 +132,8 @@ public class ProfilePicFragment extends Fragment {
                 .using(new FirebaseImageLoader())
                 .load(mProfilepicRef)
                 .error(R.drawable.add_profile_picture)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(ivImage);
 
         ivImage.setOnClickListener(new View.OnClickListener() {
