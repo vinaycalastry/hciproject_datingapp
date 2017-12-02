@@ -24,22 +24,35 @@ const database = firebase.database();
         
         var interests = snapshot.child('interests').val();
 		var interestedin = snapshot.child('interested').val();
+		var flag=0;
+		var responsval=[];
 		console.log(interests);
 		if(interests == null){
 			matchedPeople[0]="Please provide your interests in Profile section for finding matches";
-			res.status(200).json(matchedPeople);
-		}else{
+			responsval=matchedPeople;
+			flag=1;
+			res.status(200).json(responsval);				  }
+		else{
         matchDate(profileId, interests,interestedin).then(function(matchID){
           console.log("test:"+matchID);
-		  if(matchID == null){
+		  if(matchID == null && flag==0){
 			matchedPeople[0]="No Matches found!!!";
+			responsval = matchedPeople;
 			console.log("test:"+matchedPeople);
-			res.status(200).json(matchedPeople);
+			//res.status(200).json(matchedPeople);
+			flag=1;
 		  }
 		  else{
-			res.status(200).json(matchID);  
-		  }
-        }).catch(function(err){
+			 
+			 responsval = matchID;
+			 //flag=1;
+		//	 res.status(200).json(matchID);  
+		  } 
+		  
+		  res.status(200).json(responsval);
+        } 
+		
+		).catch(function(err){
           res.status(404).json({error:err});
         });
 	}}, function (errorObject) {
