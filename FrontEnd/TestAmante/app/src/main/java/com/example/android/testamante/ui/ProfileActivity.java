@@ -94,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.match_menu, menu);
+        inflater.inflate(R.menu.menu_profile, menu);
         return true;
     }
 
