@@ -44,6 +44,8 @@ public class MatchProfilesActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private TextView noMatchesTextView;
     private MatchesListAdapter matchesListAdapter;
+    private MatchedProfile mProfile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +95,11 @@ public class MatchProfilesActivity extends AppCompatActivity {
                                 // Get current json object
                                 JSONObject matchedProfile = response.getJSONObject(i);
 
-                                final MatchedProfile mProfile = new MatchedProfile();
+                                mProfile = new MatchedProfile();
                                 mProfile.setProfileID(matchedProfile.getString("profileid"));
                                 mProfile.setProfilePicURL(matchedProfile.getString("picurl"));
                                 mProfile.setDescription("Description Not Available !!!");
+
                                 mDatabase = firebaseDatabase.getReference().child("Profiles/0/").child(mProfile.getProfileID());
                                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                              @Override
@@ -104,8 +107,8 @@ public class MatchProfilesActivity extends AppCompatActivity {
 
                                                                                  if (dataSnapshot.child("about").getValue() != null) {
                                                                                      mProfile.setDescription((String) dataSnapshot.child("about").getValue());
+                                                                                     updateRecyclerView();
                                                                                      //Log.i("information", (String) dataSnapshot.child("about").getValue());
-
                                                                                  }
                                                                              }
 
@@ -133,6 +136,10 @@ public class MatchProfilesActivity extends AppCompatActivity {
                 }
         );
         queue.add(getRequest);
+    }
+
+    private void saveAndUpdateProfileToList() {
+
     }
 
     @Override

@@ -8,12 +8,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.android.testamante.R;
 import com.example.android.testamante.ui.fragments.AboutFragment;
 import com.example.android.testamante.ui.fragments.ProfileDetailsFragment;
 import com.example.android.testamante.ui.fragments.ProfilePicFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.roughike.swipeselector.SwipeItem;
 import com.roughike.swipeselector.SwipeSelector;
 
@@ -91,9 +93,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return false;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.match_menu, menu);
+        return true;
     }
 
     @Override
@@ -104,7 +106,12 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDetails
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.profile_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(this, SplashActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            //finish();
             return true;
         }
 

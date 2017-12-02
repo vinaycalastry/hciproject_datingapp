@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.android.testamante.R;
@@ -55,7 +56,7 @@ public class MatchesListAdapter extends
         // Set item views based on your views and data model
         if (matchedProfilesList != null) {
             MatchedProfile matchedProfile = matchedProfilesList.get(position);
-
+            holder.descView.setText(matchedProfile.getDescription());
             StorageReference mProfilepicRef = mStorageRef.child(matchedProfile.getProfileID() + ".jpg");
             Glide.with(mContext)
                     .using(new FirebaseImageLoader())
@@ -81,6 +82,7 @@ public class MatchesListAdapter extends
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView descView;
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public ImageView profile_image;
@@ -94,6 +96,7 @@ public class MatchesListAdapter extends
             super(itemView);
             profile_image = (ImageView) itemView.findViewById(R.id.matched_profile_image);
             messageButton = (Button) itemView.findViewById(R.id.matched_profile_messageButton);
+            descView = (TextView) itemView.findViewById(R.id.profileDescription);
 
         }
     }
