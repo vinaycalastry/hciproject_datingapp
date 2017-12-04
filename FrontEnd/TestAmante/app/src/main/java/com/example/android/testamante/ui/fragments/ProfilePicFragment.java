@@ -256,7 +256,7 @@ public class ProfilePicFragment extends Fragment {
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         selectedImageBitmap = thumbnail;
         //pushImageToFirebase(thumbnail);
         ivImage.setImageBitmap(selectedImageBitmap);
