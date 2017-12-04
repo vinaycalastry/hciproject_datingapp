@@ -142,8 +142,8 @@ public class ProfileDetailsFragment extends Fragment {
                     }
 
                     } else {
-                    usernameEditText.setText("Enter Name");
-                    dobEditText.setText("09-10-1992");
+                    usernameEditText.setHint("Enter Name");
+                    dobEditText.setHint("09-10-1992");
                     iamASpinner.setSelection(1);
                     interestedInSpinner.setSelection(1);
                     }

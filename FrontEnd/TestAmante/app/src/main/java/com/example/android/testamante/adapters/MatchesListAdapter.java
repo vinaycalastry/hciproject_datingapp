@@ -63,13 +63,7 @@ public class MatchesListAdapter extends
                     .load(mProfilepicRef)
                     .error(R.drawable.add_profile_picture)
                     .into(holder.profile_image);
-
-//            Glide.with(mContext)
-//                    .load(imagePath)
-//                    .fitCenter()
-//                    .into(holder.profile_image);
-
-            //holder.profile_image.setText(item.getUserName());
+            holder.profileName.setText(matchedProfile.getName());
         }
     }
 
@@ -83,6 +77,7 @@ public class MatchesListAdapter extends
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView descView;
+        private final TextView profileName;
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public ImageView profile_image;
@@ -97,6 +92,7 @@ public class MatchesListAdapter extends
             profile_image = (ImageView) itemView.findViewById(R.id.matched_profile_image);
             messageButton = (Button) itemView.findViewById(R.id.matched_profile_messageButton);
             descView = (TextView) itemView.findViewById(R.id.profileDescription);
+            profileName = (TextView) itemView.findViewById(R.id.profileName);
 
         }
     }
