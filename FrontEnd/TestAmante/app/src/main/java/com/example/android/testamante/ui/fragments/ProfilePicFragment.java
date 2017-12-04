@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -35,9 +34,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -114,11 +110,15 @@ public class ProfilePicFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (selectedImageBitmap != null) {
+                    ivImage.setImageBitmap(selectedImageBitmap);
                     pushImageToFirebase(selectedImageBitmap);
+                    if (mListener != null) {
+                        mListener.onFragmentInteraction(1);
+                    }
+                } else {
+                    checkSameImage();
                 }
-                if (mListener != null) {
-                    mListener.onFragmentInteraction(1);
-                }
+
 
             }
         });
@@ -163,6 +163,30 @@ public class ProfilePicFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
+    private void checkSameImage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Add Photo!!");
+        builder.setMessage("Do you want to continue with the same image?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (mListener != null) {
+                    mListener.onFragmentInteraction(1);
+                }
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Do Nothing
+            }
+        });
+        builder.show();
+    }
+
+
 
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
@@ -233,21 +257,6 @@ public class ProfilePicFragment extends Fragment {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         selectedImageBitmap = thumbnail;
         //pushImageToFirebase(thumbnail);
         ivImage.setImageBitmap(selectedImageBitmap);
@@ -292,6 +301,8 @@ public class ProfilePicFragment extends Fragment {
         mDatabase.child("picurl").setValue(profpic_name);
 
     }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
