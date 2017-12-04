@@ -149,6 +149,7 @@ public class AboutFragment extends Fragment {
                     occupationEditText.setText((CharSequence) dataSnapshot.child("occupation").getValue());
 
                     try {
+                        interests = "";
                         List<String> list = (ArrayList<String>) dataSnapshot.child("interests").getValue();
                         for (int i = 0; i < list.size(); i++) {
                             if (interests.trim().length() > 0) {
