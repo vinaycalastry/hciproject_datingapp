@@ -23,7 +23,7 @@ const database = firebase.database();
     profileRef.on("value", function(snapshot) {
         
         var interests = snapshot.child('interests').val();
-		var interestedin = snapshot.child('interested').val();
+		var interestedin = snapshot.child('interestedin').val();
 		var flag=0;
 		var responsval=[];
 		console.log(interests);
@@ -79,22 +79,28 @@ function matchDate(profId, interestList,interestedin){
 		  var objarr={};
           var childref = database.ref('Profiles/0/').child(key);
 		  var likes = snapshot.child(key).child('interests').val();
-		  var interested = snapshot.child(key).child('interested').val();
-		
+		  var uname = snapshot.child(key).child('name').val();
+		  var gender = snapshot.child(key).child('gender').val();
+		  var about = snapshot.child(key).child('about').val();
 		
        	  var picurl = snapshot.child(key).child('picurl').val();
-		  console.log(likes+" "+picurl);
+		  console.log(likes+" "+picurl+" "+ gender);
 		var vig=0;
 		 if(likes!=null){
 			for(var i=0; i<interestList.length;i++){
-				 if(interested != interestedin) {
-			  break;
-		  }
+				vig=0;
+				 if(interestedin.toLowerCase() != gender.toLowerCase()) {
+						break;
+					}
+					
 			  for(var j=0; j<likes.length ;j++){
 				  if(interestList[i].trim().toLowerCase()==likes[j].trim().toLowerCase()){
 						objarr["profileid"]=key;
 						objarr["picurl"]=picurl;
+						objarr["user_name"]=uname;
+						objarr["about"]=about;
 						matchedID.push(objarr);
+						//console.log(i+" "+j);
 						vig=1;
 				  }
 				  if(vig ==1){
